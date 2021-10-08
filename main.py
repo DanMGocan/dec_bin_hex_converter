@@ -126,7 +126,7 @@ def conversion_master():
         for element in range(0, power + 1):
             new_sum = new_sum + ((int(value[element]) * (2 ** power)))
             power = power - 1
-        return new_sum
+        return new_sum # returns an integer
 
     # Function that converts Binary to Hexadecimal
     def bin_to_hex(value):
@@ -152,11 +152,12 @@ def conversion_master():
             new_sum = new_sum + ((int(new_list[element]) * (16 ** power)))
             power = power - 1
 
-        return new_sum
+        return new_sum # returns an integer
 
     # Function that converts Hexadecimal to Binary
     def hex_to_bin(value):
-        return dec_to_bin(hex_to_dec(value))
+        # This will go from Hexadecimal to Decimal and then to Binary
+        return dec_to_bin(hex_to_dec(value)) # returns a list
             
     # Function that takes the input from the above values (from base, to base, input_value)
     # and applies the it the conversion functions, and then displays the result
