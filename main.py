@@ -24,7 +24,7 @@ def conversion_master():
     bases = ["HEX", "DEC", "BIN"]
     from_base = ""
     to_base = ""
-    initial_value = None
+    initial_value = 0
 
     # Asking the user to define the initial base. The script will only
     # accept values from the "bases" list. If wrong values are being 
@@ -49,12 +49,14 @@ def conversion_master():
         # If converting from Decimal, we will take an integer as input
         # If user inputs anything else, the program will error
         if from_base == "DEC":
-           initial_value = int(input(
-               '''
-               Please input a real, whole number. Anything else
-               will generate an error \n
-               '''
-           ))
+            # Making sure the user inputs a positive value
+            while initial_value <= 0:
+                initial_value = int(input(
+                    '''
+                    Please input a real, whole number. Anything else
+                    will generate an error \n
+                    '''
+                ))
 
         # If converting from BIN or from HEX, we will take a string as input
         elif from_base == "BIN" or from_base == "HEX":
