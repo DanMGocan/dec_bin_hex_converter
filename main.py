@@ -60,9 +60,9 @@ def conversion_master():
         elif from_base == "BIN" or from_base == "HEX":
             initial_value = input(
                 '''
-                Please input a binary string [0s and 1s] or a
-                hexadecilam string [0-9, A-F]. Any other values
-                will generate an erro 
+                Please input a binary string [0's and 1's] or a
+                hexadecimal string [0-9, A-F]. Any other values
+                will generate an error \n
                 ''')
 
             # Loop that goes over each element of the string and checks if it
