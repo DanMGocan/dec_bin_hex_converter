@@ -1,908 +1,457 @@
+The question you posted pertains to the essential characteristics of cloud computing as defined by the National Institute of Standards and Technology (NIST). These characteristics distinguish cloud computing from traditional on-premises computing. Let’s break down each of these characteristics:
 
+### 1. Resource Pooling
+Resource pooling refers to the provider’s ability to serve multiple customers with a suite of shared physical and virtual resources. These resources (like storage, processing power, memory, and network bandwidth) are dynamically assigned and reassigned according to demand from a multi-tenant pool. Unlike traditional computing, where resources are dedicated to a single organization or specific hardware, cloud computing resources are drawn from a common pool and can be assigned flexibly across numerous clients. This model maximizes efficiency and utilization by leveraging economies of scale, often leading to lower costs and higher availability than traditional on-premises solutions.
 
-Let's tackle these practice exam questions one by one:
+### 2. Rapid Elasticity
+Rapid elasticity is a critical characteristic of cloud computing that allows systems to scale resource allocation up or down rapidly and often automatically to match demand. This means that during peak times, a cloud service can expand its capacity to maintain performance, and similarly, scale down during less busy periods to reduce costs. This contrasts sharply with traditional on-premises infrastructure, where scaling requires significant forethought, time for procurement and deployment, and is often limited by physical capacities. Cloud elasticity provides businesses with a flexible IT solution that can adapt to workload changes without the need for ongoing investment in physical infrastructure.
 
-### 1(a). Discuss two advantages of using a Relational Database for data persistence, when compared to using an operating system’s standard file system.
+### 3. Measured Service
+Cloud computing employs a measured service model, which means that resource usage can be monitored, controlled, and reported, providing transparency for both the provider and the consumer. This pay-as-you-go model ensures that users pay only for the resources they consume, unlike traditional computing, where resources are procured with estimated capacity needs in mind, leading to potential overprovisioning and underutilization. The measured service characteristic allows for better cost management and resource optimization, aligning operational expenses directly with actual usage.
 
-**Advantages of Using a Relational Database:**
+These three characteristics are foundational to the cloud computing model and represent a significant shift from traditional computing approaches. They enable greater flexibility, efficiency, and scalability, making cloud solutions attractive for a wide range of applications and business sizes.
 
-1. **Structured Query Language (SQL) Support**: Relational databases support SQL, which is a powerful and standardized language for querying and manipulating data. This allows for complex queries, updates, and data manipulation that are more difficult and less standardized with file systems.
+Here's a breakdown of the additional parts (b) and (c) from the question you provided:
 
-2. **Transaction Management**: Relational databases provide built-in support for transactions. This includes capabilities for ensuring consistency and integrity of data through properties like atomicity, consistency, isolation, and durability (ACID). This means that several operations can be grouped together and either all of them commit or none, ensuring data consistency even in cases of a system failure. Standard file systems generally do not support such transactional consistency and atomic operations.
+### (b) Vertical Scaling vs. Horizontal Scaling
 
-### 1(b). Explain why a surrogate key should not be used as Primary Key in tables devised to express many-to-many relationships.
+**Vertical Scaling**:
+Vertical scaling, also known as "scaling up," involves increasing the capacity of existing hardware or software by adding more resources to a single node in a system, such as more CPUs, more memory, or a faster disk. This method is generally limited by the capacity of the machine, making it suitable for applications that require more power from a single source but have a limit to how much they can scale.
 
-**Surrogate Key in Many-to-Many Relationships:**
+**Example**: Upgrading a server with a more powerful CPU, adding more RAM, or increasing the hard disk space to accommodate increased demands from an application like a database that benefits from rapid data access speeds and large memory for query processing.
 
-A surrogate key is an artificial key that uniquely identifies a row in a table. In the context of many-to-many relationships, using a surrogate key as a primary key in a junction table can obscure the natural relationships between the tables and potentially allow duplicate entries for the combination of foreign keys. Here's why it's generally avoided:
+**Horizontal Scaling**:
+Horizontal scaling, or "scaling out," involves adding more nodes to a system, such as additional servers, to distribute the load and increase capacity. This type of scaling is common in environments where high availability, load balancing, or parallel processing are required.
 
-- **Natural Composite Key Use**: Instead of a surrogate key, a composite key consisting of foreign keys that reference the linked tables should be used. This naturally enforces uniqueness of the combinations of entries, which is essential in many-to-many relationships to avoid redundant data linking.
+**Example**: Adding more web servers to a load-balanced pool to handle increased traffic to a web application like an e-commerce site during peak times, allowing the workload to be distributed across several servers instead of relying on a single server.
 
-- **Redundancy and Integrity**: Using a surrogate key requires additional mechanisms to ensure that duplicate relationships are not created. If only the surrogate key is unique but not the combination of foreign keys, it could lead to data redundancy and integrity issues.
+### (c) HTTP API Authentication Schemes
 
-### 1(c). Comment on the following statement: “Adding more Indexes will always make a Database Management System perform better”.
+**1. Javascript Web Tokens (JWT)**:
+JWTs are an open standard (RFC 7519) that define a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA.
 
-**Impact of Adding More Indexes:**
+JWTs typically consist of three parts: a header (which defines the type of token and the signing algorithm), a payload (which contains the claims or the pieces of information being transmitted, such as user details), and a signature. When using JWT for authentication, the server generates a token that certifies the user's identity and sends it to the client. The client will then include this token in the HTTP header of their requests, allowing the server to identify the client and confirm their authorization to access certain resources.
 
-This statement is not entirely accurate. While indexes can improve the performance of read operations by reducing the amount of data that needs to be scanned during queries, they also have drawbacks:
+**2. Hashed Message Authentication Codes (HMAC)**:
+HMAC is a type of message authentication code (MAC) involving a cryptographic hash function and a secret cryptographic key. It is used to verify both the data integrity and the authenticity of a message. HMAC involves hashing a combination of the message and a secret key, and thus, it provides assurance that the message has not been altered and comes from a specified sender.
 
-- **Decreased Write Performance**: Every time data is inserted, updated, or deleted, all indexes on the table must be updated. This can significantly slow down write operations, especially on tables with a large number of indexes.
+In the context of HTTP APIs, HMAC can be used to secure API access. The client sends an API request with an HMAC signature in the header, which is generated by applying the HMAC process to the request with the shared secret key. The server, which also has the secret key, can then generate its own HMAC signature for the incoming request to verify it against the client’s HMAC signature, ensuring that the message is authentic and unaltered.
 
-- **Increased Storage Space**: Indexes require additional storage space. This can lead to increased usage of disk resources and potentially slow down the system if the storage is not managed properly.
+These authentication methods provide robust security options for managing how data and resources are accessed through APIs, relying on previously-shared secrets to establish trust between the client and the server.
 
-- **Optimization Overhead**: Maintaining and optimizing indexes, especially in large databases, can add overhead that might offset the performance gains from faster reads.
+### (d) Serverless Computing and Platform-as-a-Service
 
-Adding indexes should be done strategically, focusing on frequently queried columns and considering the overall impact on the system's performance for both read and write operations.
+**Serverless Computing**:
+Serverless computing is a cloud computing execution model where the cloud provider manages the setup, capacity planning, and server management for you. This model allows developers to build applications without having to manage the underlying infrastructure. The term "serverless" is somewhat misleading as servers are still involved, but developers are not directly concerned with their operation; they focus solely on the individual functions that make up their application.
 
+Serverless computing is typically event-driven, automatically triggering code in response to events or requests. The scaling and provisioning of resources are handled automatically and precisely match the demand by only running the server processes when needed.
 
+**Why Serverless is Considered PaaS**:
+Serverless computing is considered an example of the Platform-as-a-Service (PaaS) model because it provides developers with a platform allowing them to develop, run, and manage applications without the complexity of building and maintaining the infrastructure typically associated with developing and launching an app. Like traditional PaaS services, serverless computing abstracts the hardware and operating systems away, enabling developers to focus on writing code. However, it goes further by abstracting the application instance itself, managing the execution of individual functions that only run in response to events, and automatically managing the scaling and capacity issues.
 
-Let's address these three additional queries:
+### (e) Criticisms of Cloud Computing
 
-### 1(d). Describe an example of a “Dirty Read” in transactional databases.
+While cloud computing offers significant advantages, it also faces several criticisms:
 
-**Dirty Read Example:**
+**1. Security and Privacy**:
+Even though cloud service providers implement robust security measures, storing sensitive data on external servers always opens potential risks for data breaches and security incidents. Clients must trust their providers to manage data securely and adhere to all privacy regulations, which can be a challenge in regions with strict data protection laws.
 
-A dirty read occurs when a transaction reads data that has been written by another transaction that has not yet been committed. This can lead to problems if the second transaction is rolled back, meaning the first transaction read data that was never officially saved.
+**2. Dependence on Internet Connectivity**:
+Cloud computing entirely depends on an internet connection. If the internet service is down or if there’s insufficient bandwidth, it can impede access to data and applications, potentially halting business operations.
 
-**Example:**
-Suppose Transaction A updates a row in the `Accounts` table to change the balance from $100 to $200, but has not yet committed the change. Concurrently, Transaction B reads the same row before Transaction A commits or rolls back. Transaction B sees the balance as $200 and makes decisions based on this balance (e.g., approving a withdrawal based on this amount). If Transaction A later rolls back its update, the balance returns to $100, but Transaction B's actions were based on the incorrect, "dirty" data.
+**3. Vendor Lock-In**:
+Switching cloud providers can be difficult because of the significant differences in the architectures, services, and data transfer costs associated with moving from one cloud to another. This can leave customers dependent on a single provider’s pricing and service structures, which may become disadvantageous over time.
 
-### 1(e). Comment on the following statement: “Database Management System Administrators should always define a Transaction Isolation Level of Serializable”.
+**4. Cost Predictability**:
+While cloud computing generally reduces the need for upfront capital expenditure, operational costs can be unpredictable. Pricing models based on pay-for-what-you-use can vary widely depending on the load and the specific services used, making budgeting challenging.
 
-**Comment on Serializable Isolation:**
+**5. Limited Control**:
+By hosting on a cloud provider's infrastructure, companies may face limited control over their own applications and servers. This can impact operations, especially for companies with high compliance and control requirements.
 
-Serializable is the highest level of isolation in transaction processing and ensures complete isolation from other transactions, making the transaction appear as if it is the only one interacting with the database. While this level eliminates phenomena like dirty reads, non-repeatable reads, and phantom reads, it is not always the best choice due to its impact on performance:
+Each of these points represents a consideration that businesses must weigh when deciding whether and how to use cloud computing technologies in their operations.
 
-- **Performance Impact:** Serializable can significantly slow down transaction processing because it often requires locking resources more aggressively, which can lead to increased lock contention and reduced throughput in a system with many concurrent transactions.
-  
-- **Not Always Necessary:** Lower levels of isolation (e.g., Read Committed or Repeatable Read) might be sufficient depending on the application's specific consistency requirements, and can perform better with less overhead.
+### 2(a) Virtualization of CPU, Memory, Networking, and Data Storage
 
-It's important for DBMS administrators to balance the need for data consistency with performance requirements and choose an appropriate isolation level based on the specific use case.
+**Virtualization** refers to the creation of a virtual (rather than actual) version of something, such as hardware platforms, operating systems, storage devices, or network resources.
 
-### 1(f). Discuss two circumstances where Stored Procedures might become useful in Database Systems.
+- **CPU and Memory**: In the context of CPU and memory virtualization, the technology allows multiple instances of one or more operating systems to share the physical resources of a single hardware system. It abstracts processor and memory resources into multiple execution environments. This abstraction allows the physical CPU and memory resources to appear as multiple, separate processors and memory storage units. For example, in a virtualized environment, a single physical server can be divided into multiple virtual machines (VMs), each with its own operating system but sharing the same underlying physical hardware resources.
 
-**Usefulness of Stored Procedures:**
+- **Networking**: Network virtualization involves combining hardware and software network resources into a single, software-based administrative entity, a virtual network. This type of virtualization allows for the creation of virtual network interfaces, switches, and routers, which enable VMs to communicate within the same physical server or across different physical servers without the need for additional networking hardware. This makes network configurations more flexible and agile, facilitating easier scaling and management.
 
-1. **Complex Business Logic:** Stored procedures are very useful when complex business logic that requires multiple SQL statements needs to be executed atomically. They allow all these statements to be encapsulated in the database as a single callable routine. This can simplify client-side code, reduce network traffic, and ensure consistent implementation of the logic across different applications that use the database.
+- **Data Storage**: Storage virtualization abstracts physical storage from multiple network storage devices into what appears to be a single storage device that is managed from a central console. This technology is used to pool physical storage from multiple network storage devices into one single storage device that can be managed centrally. It improves resource utilization, enhances performance, and simplifies backup and recovery processes.
 
-2. **Security and Access Control:** Stored procedures can enhance security by restricting direct access to tables and instead providing a limited interface to perform specific operations. For example, a stored procedure can allow a user to insert data into a table without giving them permission to directly insert into the table, thereby helping to prevent SQL injection attacks and ensuring data integrity by controlling exactly what can be inserted and how.
+### 2(b) Containers in Cloud Virtualization and Relationship with Docker
 
-Stored procedures also encapsulate logic within the database, which can lead to better maintenance and management of the code, especially in large or complex systems.
+**Container in Cloud Virtualization**:
+A container in cloud virtualization is a lightweight, executable unit of software in which application code is packaged, along with its libraries and dependencies, in common ways so it can be run anywhere, whether on desktop, traditional IT, or the cloud. Containers share the host system’s kernel but can be constrained to use a given amount of resources like CPU cycles and memory. Containers isolate software from its environment and ensure that it works uniformly despite differences for instance between development and staging.
 
+**Relationship between Docker and Containers**:
+Docker is a platform that uses containerization technology to develop, ship, and run applications. Docker provides an open platform for developers and sysadmins to build, ship, and run distributed applications, whether on laptops, data center VMs, or the cloud. It uses the container model to bundle an application and its dependencies into a container that can be moved between environments. Docker provides the tooling and a platform to manage the lifecycle of containers:
+- **Development**: Docker can be used to create containers for application development, ensuring consistency across multiple development and testing environments.
+- **Shipping**: Containers can be used to push applications into a test environment and later into production.
+- **Running**: Docker provides a standardized way of running applications on various computing environments, thereby simplifying operations.
 
+Docker popularized container technology by providing an integrated technology suite that enables developers to quickly assemble apps from components and manage them over time. It has become synonymous with container technology because it simplified the creation and deployment of containers, making this technology accessible to many developers.
 
-Let's break down each part of this complex query related to a supermarket chain in Ireland that needs a transactional database to manage product orders.
+Here are the Docker commands required for the operations specified:
 
-### (a) Provide an Entity-Relationship Diagram (ERD) with Chen Style
+### 1. Running a container from an image as a daemon
 
-Here’s a description of the ERD based on the requirements:
+To run a container from an image called `my-image` and use the name `my-server` in daemon mode (which means it runs in the background), you can use the following command:
 
-#### Entities:
-1. **Order**
-   - Attributes: Order ID, Order Date, Order Time
-   - Relationships: Made at one branch, contains multiple products
-2. **Product**
-   - Attributes: SKU (Primary Key), Description
-   - Relationships: Can be included in multiple orders
-3. **Branch**
-   - Attributes: Branch ID, Street, City, Telephone Number, Manager Name, Manager Email
-   - Relationships: Processes multiple orders
-
-#### Relationships:
-1. **Orders to Products (Many-to-Many)**
-   - Includes a junction table (Order Details) containing: Order ID, SKU, Quantity, Unit Price
-2. **Orders to Branch (Many-to-One)**
-   - Each order is placed at one branch.
-
-**Assumptions:**
-- Each order can contain multiple products, and each product can appear in multiple orders, thus requiring a junction table (Order Details) to handle the many-to-many relationship.
-- Orders are uniquely identified by an Order ID and are linked to one specific branch.
-
-This ERD would use Chen notation with rectangles for entities, diamonds for relationships, and ovals for attributes. Lines connect entities to relationships indicating cardinality (one-to-many, many-to-one, many-to-many as appropriate).
-
-### (b) Translate the ERD into physical database tables
-
-#### Tables:
-1. **Branch**
-   - Columns: Branch_ID (PK), Street, City, Telephone, Manager_Name, Manager_Email
-2. **Product**
-   - Columns: SKU (PK), Description
-3. **Order**
-   - Columns: Order_ID (PK), Order_Date, Order_Time, Branch_ID (FK)
-4. **Order_Details** (Junction table for the many-to-many relationship)
-   - Columns: Order_ID (FK), SKU (FK), Quantity, Unit_Price
-   - Primary Key: (Order_ID, SKU)
-
-**Keys and Indexes:**
-- Primary keys (PK) and foreign keys (FK) as noted above.
-- Consider indexes on commonly searched columns like Branch_ID in Orders, SKU in Order_Details.
-
-### (c) Is the solution in Third Normal Form (3NF)?
-
-The proposed database design should meet the Third Normal Form (3NF) because:
-- All tables are already in 1NF as each table column contains only atomic values, and there are no repeating groups.
-- All tables are in 2NF because there are no partial dependencies of any column on the primary key.
-- All tables are in 3NF as there are no transitive dependencies; all non-primary key columns are directly dependent on the primary keys and not on any other non-primary key columns.
-
-### (d) Provide the SQL code to create a table “Order”
-
-Here is an SQL example to create the `Order` table with appropriate data types and constraints:
-
-```sql
-CREATE TABLE `Order` (
-  `Order_ID` INT NOT NULL AUTO_INCREMENT,
-  `Order_Date` DATE NOT NULL,
-  `Order_Time` TIME NOT NULL,
-  `Branch_ID` INT NOT NULL,
-  PRIMARY KEY (`Order_ID`),
-  FOREIGN KEY (`Branch_ID`) REFERENCES Branch(`Branch_ID`)
-);
+```bash
+docker run -d --name my-server my-image
 ```
 
-This SQL code defines the `Order` table with a primary key that auto-increments, ensuring unique identifiers for each order, and a foreign key that links each order to a branch, ensuring referential integrity. The date and time data types match the requirements for storing specific order timing information.
+Here:
+- `docker run`: Command to create and start a container.
+- `-d`: Detach mode, runs the container in the background.
+- `--name my-server`: Assigns the name `my-server` to the new container.
+- `my-image`: The name of the Docker image to use.
 
+### 2. Executing a Python script within a running container
 
+To execute a Python script named `my-script.py` within a running container called `my-server`, use the following command:
 
-Here's how to tackle each of the SQL tasks based on the given schema for the "World Database".
-
-### (a) List all the countries with ‘Population’ of at least 10 million.
-
-```sql
-SELECT Name
-FROM country
-WHERE Population >= 10000000;
+```bash
+docker exec my-server python my-script.py
 ```
 
-This SQL query selects the names of all countries from the `country` table where the population is 10 million or more.
+Here:
+- `docker exec`: Command to run a command in a running container.
+- `my-server`: Name of the container where the command will be executed.
+- `python my-script.py`: The command that will be executed inside the container, which in this case is running a Python script.
 
-### (b) List all countries by ‘Name’ and the number of languages spoken in it, including countries without any language listed.
+These commands should successfully allow you to manage your container tasks as described.
 
-```sql
-SELECT c.Name, COUNT(l.Language) AS Number_of_Languages
-FROM country c
-LEFT JOIN countrylanguage l ON c.Code = l.CountryCode
-GROUP BY c.Name;
-```
+### 3(a) Five Features or Benefits of the Infrastructure-as-a-Service (IaaS) Model
 
-This SQL query joins the `country` table and the `countrylanguage` table on the country code, counting the number of languages associated with each country. It uses a `LEFT JOIN` to ensure that countries without any languages listed are included, showing `0` for their language count.
+1. **Scalability and Flexibility**: IaaS environments allow for scaling up or down resources based on demand, providing flexibility not typically available with physical infrastructures. This is ideal for businesses with fluctuating workloads.
 
-### (c) Create an SQL View to list all the cities with ‘English’ as an official language (`isOfficial = 'T'`).
+2. **Cost-Effectiveness**: IaaS eliminates the upfront cost of setting up and managing physical servers. It offers a pay-as-you-go model, meaning you only pay for the resources you use, which can lead to significant cost savings.
 
-```sql
-CREATE VIEW EnglishSpeakingCities AS
-SELECT ci.Name
-FROM city ci
-JOIN countrylanguage cl ON ci.CountryCode = cl.CountryCode
-WHERE cl.Language = 'English' AND cl.isOfficial = 'T';
-```
+3. **Disaster Recovery and Continuity**: With IaaS, the responsibility for managing the underlying infrastructure lies with the provider, including disaster recovery. This means organizations can achieve more robust business continuity capabilities without the need to invest in duplicate hardware.
 
-This SQL statement creates a view named `EnglishSpeakingCities` that lists all cities where English is an official language. It joins the `city` and `countrylanguage` tables on the country code and filters for English as an official language.
+4. **Improved Performance**: Many IaaS providers continually upgrade their services to the latest generation of fast and efficient computing hardware. This provides customers with better performance than could be achieved with older in-house hardware that may suffer from deferred maintenance.
 
-### (d) Create a Stored Procedure to list the countries whose names start with the letter ‘P’.
+5. **Geographic Reach**: IaaS enables organizations to deploy their applications in multiple locations around the world easily. This helps in reducing latency for end-users and adhering to local laws or regulations regarding data sovereignty.
 
-```sql
-CREATE PROCEDURE ListCountriesStartingWithP()
-BEGIN
-    SELECT Name
-    FROM country
-    WHERE Name LIKE 'P%';
-END;
-```
+### 3(b) Mechanisms for High Availability and Resilience in IaaS
 
-This stored procedure, when called, will list all countries whose names begin with the letter 'P'. The procedure does not take any parameters and performs a simple `SELECT` operation with a `LIKE` clause to match names starting with 'P'.
+IaaS vendors provide several mechanisms that can enhance the availability and resilience of cloud deployments, helping to exceed the typical 99.9% uptime specified in basic Service Level Agreements (SLAs):
 
-These SQL codes are based on standard SQL syntax and should be compatible with most SQL databases, although minor adjustments might be necessary depending on the specific SQL dialect, like Oracle SQL or MySQL.
+1. **Redundancy**: IaaS platforms typically distribute resources such as servers, storage, and networking across multiple physical locations within data centers. This redundancy allows for failover setups where, if one server fails, another can take over, minimizing downtime.
 
+2. **Load Balancing**: To distribute incoming network traffic across multiple servers, load balancers ensure no single server bears too much demand. By balancing application requests across several machines, load balancers help maintain performance during peak times and improve the overall availability.
 
+3. **Auto-scaling**: This feature automatically adjusts the number of active servers up or down according to the demand. Auto-scaling ensures that the application can handle the load during peak performance times without manual intervention, and scale down during low usage times to save costs.
 
-Let's address each part of your query based on the information provided.
+4. **Backup and Restore Services**: IaaS providers offer regular backups of data which can be restored in case of a data loss incident. These services are essential for recovery strategies, ensuring data integrity and quick recovery from failures.
 
-### (a) Discuss two situations where the use of a Relational Database might not be the most appropriate solution.
+5. **Health Monitoring and Recovery Tools**: Modern IaaS platforms include comprehensive monitoring tools that provide real-time data on the health of all deployed services. These tools can automatically trigger alerts or even initiate corrective actions, such as rebooting servers or re-routing traffic through healthy paths.
 
-1. **Handling Large Volumes of Unstructured Data**: Relational databases are structured to handle well-defined, structured data and may struggle with unstructured data like multimedia files (videos, images), social media content, or documents. NoSQL databases or specialized data storage systems (e.g., file stores, data lakes) are better suited for managing this type of data due to their schema-less nature, which provides more flexibility.
+By leveraging these mechanisms, organizations can build more resilient cloud architectures that are capable of maintaining higher levels of uptime and ensuring seamless continuity of service even under challenging conditions.
 
-2. **Real-Time Processing of Big Data**: For applications requiring real-time analysis and processing of huge volumes of data, such as big data analytics and high-speed data streaming (e.g., financial trading systems, real-time traffic monitoring), a relational database might not offer the necessary performance due to its transaction and consistency overheads. Systems like Apache Kafka for streaming data, or specialized big data platforms like Hadoop or NoSQL databases (e.g., Cassandra, MongoDB), provide better performance for these use cases.
+### 4(a) Three Cloud Management Interface Types
 
-### (b) Explain the advantage of describing Data Models in different levels of abstraction, such as External, Conceptual, Logical, and Internal layers.
+1. **Command-Line Interfaces (CLI)**:
+   - **Strength**: Allows for scripting and automation of tasks, making it ideal for system administrators and advanced users to efficiently manage cloud resources.
+   - **Weakness**: Has a steeper learning curve compared to graphical user interfaces and can be less intuitive for users unfamiliar with command-line operations.
 
-The use of different layers of data modeling abstraction (External, Conceptual, Logical, and Internal) offers several advantages:
+2. **Graphical User Interfaces (GUI)**:
+   - **Strength**: User-friendly and visually intuitive, making it easier for users to navigate and manage cloud services without deep technical knowledge.
+   - **Weakness**: Typically slower to use for complex tasks that could be more efficiently managed via scripts or CLI commands.
 
-- **Clarity and Simplification**: Each layer focuses on different aspects of the database design, tailored to different audiences. The external model caters to end-user interactions, the conceptual model addresses the system analyst’s view, the logical model is for the database designer, and the internal model handles the physical aspects of storage. This separation clarifies complex systems by breaking them down into more manageable parts.
+3. **Application Programming Interfaces (API)**:
+   - **Strength**: Provides programmability which allows developers to integrate cloud management tasks directly into applications, enabling dynamic scaling, management, and monitoring.
+   - **Weakness**: Requires programming knowledge, which can be a barrier for non-developers, and can vary significantly between providers, leading to potential integration challenges.
 
-- **Flexibility and Reusability**: Changes in one model do not necessarily affect others. For instance, you can change the physical storage of data (Internal) without altering the logical structure that the applications use. This flexibility allows for easier maintenance and scaling of systems.
+### 4(b) REST API Concepts
 
-- **Efficiency in Design and Troubleshooting**: By separating concerns, each model can be optimized independently. For example, database administrators can optimize the internal model for performance without affecting the user's view of the data. Similarly, issues can be addressed more effectively at the relevant abstraction level.
+- **Items and Collections Resources**:
+  - In REST, an item refers to an individual instance of a resource type, identified by a unique identifier (URI). For example, in a user management system, an item could represent a single user.
+  - A collection is a group of items that share the same type. For example, the `/users` endpoint might retrieve a list of all user items in the user management system.
+  - **Context**: RESTful APIs use standard HTTP methods to operate on these resources. For instance, `GET /users` would retrieve the collection, while `GET /users/123` would fetch a specific item.
 
-### (c) Explain why search with B-Tree indexes is so efficient.
+- **Idempotence**:
+  - An operation is idempotent if performing it multiple times has the same effect as doing it just once. In REST, the GET, PUT, and DELETE methods are idempotent. 
+  - **Context**: If you DELETE `/users/123`, the first call deletes the user, and subsequent calls do nothing, but the result (the user is deleted) remains the same.
 
-B-Tree indexes significantly enhance search efficiency due to several factors:
+- **Universal Resource Identifiers (URIs)**:
+  - URIs are used to identify resources within a REST architecture. Each resource, whether it is an item or a collection, has a unique URI that distinguishes it from other resources.
+  - **Context**: URIs facilitate the interaction with specific resources via standard HTTP actions such as GET, POST, PUT, and DELETE.
 
-- **Balanced Tree Structure**: B-Trees maintain a balanced structure, which ensures that all leaf nodes are at the same distance from the root. This balance allows operations like search, insert, delete, and update to be performed in logarithmic time complexity (O(log n)).
+### 4(c) Why Not to Use a GUI for Automated API in DevOps
 
-- **High Fan-out**: B-Trees have a high fan-out, meaning each node can have many children. This reduces the depth of the tree and the number of disk accesses required to find an item, as fewer nodes need to be traversed.
+- **Lack of Scalability and Efficiency**: GUIs are not conducive to automation because they require manual intervention. In a DevOps environment, where the emphasis is on automation for deployment and operations processes, using a GUI limits the speed and scale at which operations can be performed.
 
-- **Orderly Storage and Retrieval**: Data in a B-Tree is stored in sorted order, allowing for efficient range queries in addition to fast search operations. The tree structure allows the database to skip over large sections of data, quickly zeroing in on the desired range.
+- **Error-Prone**: Manual processes required by GUIs are susceptible to human error, unlike scripts or CLI commands, which can be tested and consistently repeated.
 
-- **Minimization of Disk I/O Operations**: Because nodes are loaded into memory page-wise (with each node possibly representing a page), and due to the tree's balance and sort order, the number of disk I/O operations is minimized, which is often the bottleneck in database environments.
+- **Integration Challenges**: GUIs do not easily integrate with other tools and systems, which is often necessary in a DevOps process. APIs and CLI tools, on the other hand, can be seamlessly integrated into scripts and automation tools.
 
-These characteristics make B-Trees particularly suitable for databases where quick reading and writing of data are critical, and they are used extensively in both relational and non-relational database systems.
+- **Lack of Version Control**: GUI-based configurations are difficult to track and version control, unlike code-based configurations which can be committed to version control systems, allowing for better tracking of changes and auditing.
 
+For effective DevOps practices, automating cloud operations using APIs or CLI is preferable due to their compatibility with continuous integration/continuous deployment (CI/CD) systems, version control, and higher efficiency in managing complex environments.
 
 
-Here's how to tackle each part of the query based on the information provided about transactional databases.
 
-### (d) Describe an example of a “Non-repeatable Read” in transactional databases.
 
-**Non-repeatable Read Example:**
-A non-repeatable read occurs when a transaction reads the same row twice and gets different data each time. This typically happens when another transaction modifies the data after the initial read but before the second read.
 
-**Example:**
-Transaction A retrieves a row from the `Customers` table to view a customer's address. Meanwhile, Transaction B updates that same customer's address and commits the change. When Transaction A attempts to read the row again, it retrieves the new, updated address. This results in Transaction A having two different reads for the same data within the same transaction, which is a classic case of non-repeatable read.
 
-### (e) Describe a context in which a Transaction Isolation Level of Read Committed would be suitable, including an indication of who blocks whom in such circumstances.
+### 1(a) Easiest Pathway to Migrate: Infrastructure-as-a-Service (IaaS)
 
-**Context for Read Committed:**
-Read Committed is a transaction isolation level that ensures a transaction only reads data that has been committed before the transaction began. It is suitable for applications where the accuracy of data during a transaction is crucial but where the overhead of higher isolation levels like Serializable is considered too costly.
+The Infrastructure-as-a-Service (IaaS) model is often considered the easiest pathway for migrating from on-premises computing to cloud computing due to several factors:
 
-**Suitable Scenario:**
-A typical scenario would be an online booking system, where users need to see the latest available items (e.g., seats, rooms) without interference from uncommitted changes made by other users. It prevents dirty reads but still allows non-repeatable reads, striking a balance between data consistency and system performance.
+- **Minimal Changes Required**: IaaS provides virtualized computing resources over the internet. In this model, businesses can essentially rent infrastructure like servers, storage, and networking from a cloud provider on a pay-as-you-go basis. This approach is similar to traditional on-premises infrastructure in terms of management and operation, which means the migration can often be accomplished with minimal changes to existing applications and processes.
 
-**Who Blocks Whom:**
-In Read Committed, a transaction does not see uncommitted changes made by other transactions, meaning it only reads data committed before it started. Writes within a transaction can block other writes but not reads, aiming to prevent updates based on uncommitted data.
+- **Control and Flexibility**: IaaS allows organizations to maintain control over their operating systems, storage, and deployed applications—more control than what is offered by Platform-as-a-Service (PaaS) or Software-as-a-Service (SaaS) models. This makes it easier for IT staff to adapt to the cloud by using familiar tools and techniques.
 
-### (f) Discuss the disadvantages of using Stored Procedures in Database Systems.
+- **Scalability and Elasticity**: Migrating to an IaaS model provides the scalability and elasticity benefits of cloud computing, with the ability to scale resources up or down as needed, which is far more flexible and cost-effective compared to managing physical servers.
 
-**Disadvantages of Stored Procedures:**
+- **Cost Reduction**: Transitioning to IaaS can reduce the capital expenditure associated with buying and maintaining physical hardware. Costs become more predictable with the pay-as-you-go pricing model.
 
-1. **Complexity in Maintenance:** Stored procedures can become complex and difficult to maintain, especially when business logic changes frequently. The logic is embedded in the database, requiring database developers to make updates and potentially leading to more frequent deployments of database changes.
+- **Risk Mitigation**: IaaS providers typically offer robust, built-in resilience and disaster recovery. This means that part of the migration includes enhancing business continuity capabilities without additional investment in duplicate resources.
 
-2. **Portability Issues:** Stored procedures are often tightly coupled with the specific SQL dialects and capabilities of a particular database management system. This can make migrating to a different database system problematic, as stored procedures might need significant rewrites.
+**Key Implications of Migration**:
+- **Dependency on Internet Connectivity**: With IaaS, reliable and continuous internet connectivity becomes critical, as all server interactions occur over the internet.
+- **Security Concerns**: While cloud providers generally offer strong security measures, transitioning to IaaS requires careful planning around data security, compliance, and privacy.
+- **Technical Training**: Staff may require training to manage the virtual infrastructure effectively, although the learning curve may be less steep compared to other cloud models.
 
-3. **Performance Overhead:** While stored procedures can improve performance by reducing network traffic and encapsulating business logic near the data, they can also lead to increased load on the database server itself. If not carefully managed, this can impact overall server performance and scalability.
+### 1(b) Migrating from IaaS to PaaS
 
-4. **Security Concerns:** Incorrectly written or improperly secured stored procedures can lead to security vulnerabilities, such as SQL injection attacks, if dynamic SQL is used within the procedures and not handled safely.
+When managing a multi-server IaaS deployment, transitioning to a Platform-as-a-Service (PaaS) model involves several shifts:
 
-5. **Testing and Debugging Difficulty:** Stored procedures are harder to debug compared to application code because most database management systems do not offer robust debugging tools. Testing can also be more cumbersome as it often requires different techniques and tools compared to application testing.
+- **Compute**: In PaaS, the cloud provider manages the runtime environment. You would no longer manage or scale virtual machines yourself; instead, you deploy your applications directly to the platform where the management of underlying servers and operating systems is handled by the provider.
 
+- **Databases**: Transitioning to managed database services in PaaS means moving from managing your own instances of databases to using managed database services that handle scalability, patching, and database management tasks automatically.
 
+- **Storage**: Similar to databases, storage solutions in PaaS are managed by the provider, offering dynamic scalability and reduced management overhead for tasks like backups and redundancy.
 
-Here's how to handle the given tasks about an e-commerce website transactional database project focused on product returns.
+**Advantage of PaaS**:
+- **Increased Productivity**: Developers can focus more on writing code and less on managing infrastructure, which can significantly speed up development cycles and reduce time to market.
 
-### (a) Entity-Relationship Diagram (ERD) with Chen Style
+**Disadvantage of PaaS**:
+- **Reduced Control**: Moving to PaaS means losing some level of control over the environment and deeper configurations, which may not be suitable for all applications, especially those with specific requirements or legacy dependencies.
 
-For the given scenario, the ERD would include the following entities:
+Transitioning from IaaS to PaaS involves weighing these factors to determine if the trade-offs in control are worth the gains in efficiency and scalability for your specific application needs.
 
-1. **Return**:
-   - Attributes: Return ID, Return Date, Payment Method
-   - Relationships: Linked to many products and one customer.
+### (c) Using Regions and Availability Zones for Higher Service Resiliency
 
-2. **Product**:
-   - Attributes: SKU, Description, Brand
-   - Relationships: Can be part of many returns.
+**Regions and Availability Zones Explained**:
+- **Regions**: A region is a specific geographical location where cloud services are hosted. Each region consists of multiple isolated locations known as availability zones.
+- **Availability Zones**: These are distinct locations within a region that are engineered to be isolated from failures in other zones. They provide redundant power, networking, and connectivity to help protect applications and data from datacenter failures.
 
-3. **Customer**:
-   - Attributes: Customer ID, Name, Address, Date of Birth, Telephone Number, Email
-   - Relationships: Can initiate many returns.
+**Enhancing Service Resiliency**:
+Regions and availability zones are fundamental in enhancing the resiliency of cloud services. By designing applications to be multi-zone or multi-region, customers can ensure high availability and fault tolerance. Here’s how they help:
+- **Fault Isolation**: If one availability zone experiences a failure, such as hardware malfunctions or natural disasters, the deployment can continue operating in another availability zone without interruption.
+- **Data Replication**: Critical data can be replicated across multiple zones, ensuring that in the event of a zone failure, there is no data loss and service continuity is maintained.
+- **Traffic Distribution**: Using load balancers, traffic can be distributed across multiple zones, reducing the likelihood of overloading a single zone and providing seamless failover.
 
-#### Relationships:
-- **Returns to Products** (Many-to-Many): Needs a junction table like `Return_Details` containing attributes such as Return ID, SKU, Quantity Returned, Unit Price, and Motive for Return.
-- **Returns to Customer** (Many-to-One): Each return is initiated by one customer.
+**Brief on PaaS Model Resiliency**:
+The issue of resiliency and uptime is generally less of a concern within the Platform-as-a-Service (PaaS) model because the cloud provider manages much of the infrastructure. PaaS environments automatically handle application scaling and load balancing across multiple infrastructure resources, including across regions and availability zones, without user intervention. This abstraction away from the physical infrastructure layer allows organizations to focus more on application development rather than on maintaining high availability and disaster recovery strategies.
 
-**ERD Structure**:
-- **Return** Entity connected to **Return_Details** (which also connects to **Product**) and to **Customer**.
-- **Cardinality and Ordinality** would be expressed with standard Chen notation lines and symbols to represent the relationships (crow's feet for many, single line for one).
+### (d) The Role of Monitoring in Cloud Management
 
-### (b) Physical Database Tables
+**Monitoring Cloud Services**:
+Monitoring in cloud computing is essential for managing the health, performance, and costs of applications and infrastructure. It involves collecting, processing, and analyzing data to ensure that cloud resources are operating efficiently and cost-effectively. Effective monitoring strategies typically include the use of automated tools that provide real-time visibility into operations.
 
-#### Tables:
-1. **Product**:
-   - `SKU` (PK)
-   - `Description`
-   - `Brand`
+**Managing Costs**:
+- **Resource Utilization Monitoring**: Track how resources are being used and identify underutilized or idle resources which can be downsized or terminated to save costs.
+- **Budget Alerts**: Set up cost alerts to monitor cloud spending and stay within budget. This helps in avoiding unexpected expenses.
 
-2. **Customer**:
-   - `Customer_ID` (PK)
-   - `Name`
-   - `Address`
-   - `Date_of_Birth`
-   - `Telephone_Number`
-   - `Email`
+**Enhancing Performance**:
+- **Performance Metrics**: Monitor key performance indicators such as CPU utilization, response times, and system uptime to ensure that applications are performing within expected thresholds.
+- **Proactive Troubleshooting**: Use monitoring data to identify and resolve issues before they affect users. For example, automatic scaling can be triggered if the application load increases unexpectedly.
 
-3. **Return**:
-   - `Return_ID` (PK)
-   - `Return_Date`
-   - `Payment_Method`
-   - `Customer_ID` (FK)
+**Resource Planning**:
+- **Trend Analysis**: Analyze historical monitoring data to predict future trends in resource usage. This helps in capacity planning and ensuring that enough resources are available to handle future demands without overprovisioning.
+- **Load Patterns**: Understand usage patterns to optimize resource allocation, schedule maintenance, and manage deployments effectively.
 
-4. **Return_Details**:
-   - `Return_ID` (FK)
-   - `SKU` (FK)
-   - `Quantity_Returned`
-   - `Unit_Price`
-   - `Motive`
-   - Primary Key (PK): (`Return_ID`, `SKU`)
+**Conclusion**:
+Monitoring is a vital component of cloud service management that supports operational efficiency, cost management, and strategic planning. By providing detailed insights into every aspect of the cloud environment, it enables organizations to make informed decisions, enhance service delivery, and maintain optimal performance of their cloud infrastructure.
 
-Each table is designed to hold the necessary attributes as described. Foreign keys are used to establish relationships between tables. The `Return_Details` table uses a composite primary key that includes both `Return_ID` and `SKU` to uniquely identify each item within a return.
+### 2(a) Three Kinds of Cloud Management Interfaces
 
-### (c) Sample SQL Code for Insert
+**1. Command-Line Interfaces (CLI)**
+   - **Learning Curve and Ease of Use**: CLI has a steeper learning curve compared to graphical interfaces. However, it offers powerful scripting capabilities that are favored by experienced users for complex tasks.
+   - **Automated Cloud Management**: CLI is highly conducive to automation. Scripts and command lines can be used to automate a wide range of tasks, such as deploying resources, scaling, and monitoring.
+   - **Interface Stability**: CLI tends to be stable, with commands and parameters changing infrequently. This stability is critical for scripting and automation, as scripts can be reused without frequent updates.
 
-```sql
-INSERT INTO Return (Return_ID, Return_Date, Payment_Method, Customer_ID)
-VALUES (1, '2023-10-04', 'Credit Card', 10);
+**2. Graphical User Interfaces (GUI)**
+   - **Learning Curve and Ease of Use**: GUIs are generally more user-friendly and easier to navigate for beginners. They provide a visual representation of resources and tasks, making them more intuitive.
+   - **Automated Cloud Management**: While GUIs offer some automation features, such as wizards and templates, they are less flexible than CLIs for fully automated management.
+   - **Interface Stability**: GUIs can change more frequently, particularly as cloud services evolve. These changes can affect users' familiarity with the system and may require retraining.
 
-INSERT INTO Return_Details (Return_ID, SKU, Quantity_Returned, Unit_Price, Motive)
-VALUES (1, 'SKU1234', 2, 29.99, 'Damaged item');
-```
+**3. Application Programming Interfaces (API)**
+   - **Learning Curve and Ease of Use**: APIs have a learning curve that depends on the user's programming skills. Once mastered, APIs provide extensive flexibility and integration capabilities.
+   - **Automated Cloud Management**: APIs are integral to automated cloud management, allowing for direct interaction with cloud resources through programming. This enables complex automation and integration with other systems and tools.
+   - **Interface Stability**: APIs are designed to be stable, with providers maintaining backward compatibility. However, new features and changes are also common, requiring ongoing maintenance of integration code.
 
-These queries respect the types and constraints, assuming types are correctly defined in the schema creation process.
+### 2(b) Infrastructure-as-Code (IaC)
 
-### (d) SQL Code for Return Queries
+**Definition of Infrastructure-as-Code (IaC)**
+Infrastructure-as-Code (IaC) is a method used to manage and provision computer data centers through machine-readable definition files, rather than physical hardware configuration or interactive configuration tools. IaC essentially treats your hardware and operations systems as if they were software.
 
-```sql
-SELECT COUNT(*)
-FROM Return
-WHERE Customer_ID = 10 AND Payment_Method = 'Credit Card';
-```
+**Why IaC is Popular Among Cloud Management Practitioners**
+- **Automation and Efficiency**: IaC allows for the automatic provisioning and management of resources, eliminating manual processes and reducing the scope for human errors. It significantly increases efficiency in deploying and managing infrastructure.
+- **Consistency and Standardization**: By codifying infrastructure, IaC ensures that environments are provisioned consistently every time. This reduces deviations among environments, leading to more predictable operations.
+- **Scalability and Flexibility**: With IaC, scaling infrastructure up or down becomes as simple as adjusting a few lines of code. This flexibility supports agile development practices, where scalability and responsiveness are key.
+- **Cost Control**: IaC helps in tracking changes to infrastructure, which can aid in cost management and ensure that resources are optimally used. It provides visibility into the exact resources being utilized, helping avoid wasteful spending.
+- **Speed and Safety**: IaC enables rapid deployment while reducing risks associated with manual errors. Changes can be version-controlled and reviewed before being applied, improving both speed and safety in deployments.
 
-This SQL query counts the number of returns made by a customer with the ID of 10 that were paid with a "Credit Card". It directly queries the `Return` table, filtering by `Customer_ID` and `Payment_Method`.
+The popularity of IaC among cloud management practitioners stems from its ability to integrate with modern DevOps practices and tools, enhancing collaboration between operations and development teams and leading to more efficient management of resources.
 
+### 3(a) Docker Overview and Container Operations
 
+**Docker Overview**:
+Docker is a containerization platform that enables developers to package applications into containers—standardized executable components combining application source code with the operating system (OS) libraries and dependencies required to run that code in any environment. Docker containers are lightweight, standalone, and executable software packages that include everything needed to run an application: code, runtime, system tools, system libraries, and settings.
 
-Here’s how to address the SQL queries based on the relational schema provided for a student module grading system:
+**Container Lifecycle Management**:
+Docker provides a powerful, consistent environment for development and deployment, and simplifies configuration. Containers are isolated from each other and the host system, yet can interact through well-defined channels.
 
-### (a) SQL to List Modules Taken by Each Student
+**Docker Commands for Specific Operations**:
 
-This query will list all modules (by title) taken by each student (by name), including the grade obtained, but excluding students without any module enrollments and modules without students:
+1. **Building a Docker Image**:
+   ```bash
+   docker build -t dbserver .
+   ```
+   - `-t dbserver` tags the image with the name "dbserver".
+   - `.` tells Docker to look for the Dockerfile in the current directory.
+   - This command builds an image from a Dockerfile in the current directory, named `dbserver`, and removes intermediate containers after the build process to clean up any leftovers.
 
-```sql
-SELECT s.firstname, s.surname, m.title, stm.grade
-FROM student s
-JOIN student_takes_module stm ON s.idstudent = stm.idstudent
-JOIN module m ON stm.idmodule = m.idmodule;
-```
+2. **Creating a Bridge Network**:
+   ```bash
+   docker network create --driver bridge --subnet 192.168.1.0/24 --gateway 192.168.1.1 dbnet
+   ```
+   - `--driver bridge` specifies the network type.
+   - `--subnet 192.168.1.0/24` defines the subnet for the network.
+   - `--gateway 192.168.1.1` sets the gateway for the network.
+   - `dbnet` is the name of the network.
 
-This query uses `JOIN` operations to link the tables based on foreign key relationships and retrieves the required information.
+3. **Starting a Container on a Network**:
+   ```bash
+   docker run -d --name dbserver-instance --network dbnet dbserver
+   ```
+   - `-d` runs the container in detached mode.
+   - `--name dbserver-instance` names the container.
+   - `--network dbnet` connects the container to the previously created network.
+   - `dbserver` is the image from which the container is created.
 
-### (b) SQL View for Lecturer Module Grade Averages
+4. **Suspending and Committing a Container**:
+   ```bash
+   docker pause dbserver-instance
+   docker commit dbserver-instance dbserver-image
+   ```
+   - `docker pause dbserver-instance` suspends all processes in the specified container.
+   - `docker commit dbserver-instance dbserver-image` creates a new image called `dbserver-image` from a running container `dbserver-instance` to capture its current state, which is useful for migrating or backup purposes.
 
-This view will list all lecturers and the average grade of the modules they teach:
+These commands showcase Docker’s capabilities for managing container lifecycle, networking, and state preservation through image creation. Docker simplifies deploying and managing applications in a predictable environment, detached from underlying hardware constraints.
 
-```sql
-CREATE VIEW LecturerGradeAverages AS
-SELECT l.firstname, l.surname, m.title, AVG(stm.grade) AS average_grade
-FROM lecturer l
-JOIN module m ON l.idlecturer = m.idlecturer
-JOIN student_takes_module stm ON m.idmodule = stm.idmodule
-GROUP BY l.firstname, l.surname, m.title;
-```
+### Principle Advantages of Container Virtualization Over Hypervisor Virtualization
 
-This view joins the `lecturer`, `module`, and `student_takes_module` tables to compute the average grade for each module by lecturer, grouped by lecturer and module title.
+**1. Resource Efficiency**
+   - **Containers**: Utilize the host OS kernel, making them much more lightweight than virtual machines. Containers share the host system’s OS among all containers, only requiring the application and its dependencies to be packaged. This results in lower resource consumption and faster start-up times compared to VMs.
+   - **Hypervisors**: Run multiple guest operating systems, each of which needs its own full copy of an OS, a virtual copy of all the hardware that the OS requires to run. This often leads to greater resource overhead.
 
-### (c) Trigger to Check Lecturer Salary
+**2. Performance**
+   - **Containers**: Provide near-native performance as applications running in containers use the host OS's kernel without the need for a guest OS. Hence, they avoid the performance overhead that hypervisors suffer due to emulation or virtualization of hardware resources.
+   - **Hypervisors**: May introduce additional latency because each VM requires its own OS instance, leading to increased system calls that go through the hypervisor layer.
 
-This trigger checks and sets the salary of a new lecturer to zero if it is initially negative:
+**3. Scalability and Speed**
+   - **Containers**: Can be created, replicated, and destroyed in seconds, providing high scalability and responsiveness which is ideal for microservices architectures and agile software development practices.
+   - **Hypervisors**: VMs typically take longer to boot and scale because each VM is a full-fledged machine carrying the weight of a complete OS.
 
-```sql
-CREATE TRIGGER CheckSalaryBeforeInsert
-BEFORE INSERT ON lecturer
-FOR EACH ROW
-BEGIN
-  IF NEW.salary < 0 THEN
-    SET NEW.salary = 0;
-  END IF;
-END;
-```
+**4. Portability**
+   - **Containers**: Encapsulate an application and its environment. As long as the host OS supports the container engine, the container can run on any system, preventing the “it works on my machine” problem, which is crucial for consistent development and deployment cycles.
+   - **Hypervisors**: VMs are less portable compared to containers due to their dependence on the guest OS. The same VM may not perform identically across different hypervisor environments without additional configuration.
 
-This trigger is set to activate before a new record is inserted into the `lecturer` table. It modifies the salary field in the new row if its value is negative.
+### Containers and Enterprise Software Deployment and Interoperability
 
-### (d) Third Normal Form Check
+**Deployment Flexibility**
+   - Containers can run on any environment that supports the container runtime environment (e.g., Docker). This uniformity allows enterprises to seamlessly move applications between local development environments, testing environments, and production systems in the cloud without compatibility issues.
 
-The schema provided likely adheres to the Third Normal Form (3NF) if the following conditions are met:
+**Microservices and Scalability**
+   - The lightweight nature of containers makes them ideal for microservices architecture, where each part of an application can be housed in a separate container. This setup enhances modularity and allows for independent scaling of services, which is more difficult to achieve efficiently with VMs.
 
-- All entities (tables) are in Second Normal Form (2NF), meaning there are no partial dependencies of non-prime attributes on any candidate key.
-- All attributes in each table are dependent only on the primary key and not on any other non-prime attribute (no transitive dependencies).
+**Continuous Integration and Continuous Deployment (CI/CD)**
+   - Containers integrate perfectly with CI/CD pipelines. Developers can create and test software within containers, ensuring that the software behaves the same way in production as it does in development. Automation tools can push updates to containers with minimal downtime, supporting rapid iteration and responsive deployment schedules.
 
-**Assessment based on visible schema:**
-- The `student`, `module`, and `lecturer` tables seem to have attributes that depend only on their primary keys (`idstudent`, `idmodule`, `idlecturer` respectively), indicating no transitive dependencies are present.
-- The `student_takes_module` table acts as a junction table with attributes depending only on the composite key (`idstudent`, `idmodule`), which is typical in many-to-many relationships between `student` and `module`.
+**Standardization and Simplification**
+   - Using containers, developers can create predictable environments isolated from other applications. This isolation reduces conflicts between running applications and simplifies the management of dependencies.
 
-This schema is likely in 3NF, provided that all non-key attributes in each table do not depend on other non-key attributes. This eliminates redundancy and maintains data integrity, ensuring that updates to the data do not lead to anomalies or require changes in multiple places for a single piece of information.
+**Interoperability**
+   - Containers support open standards and are supported by major cloud providers, offering great flexibility in terms of where and how applications can run. This universal support promotes interoperability across different platforms and cloud environments, aiding enterprises in avoiding vendor lock-in.
 
+In summary, container virtualization presents significant advantages over hypervisor-based virtualization by offering efficiency, performance, scalability, and interoperability benefits, which are critical for modern, dynamic enterprise environments.
 
-Let's address each part of your query based on the provided image:
+### 4(a) Underlying Principle of RESTful APIs and Advantages for the Cloud
 
-### 1.a) Issues with using files for data persistence and how a database can address these issues
+**Underlying Principle of RESTful APIs:**
+RESTful APIs (Representational State Transfer) are designed around the use of standard HTTP methods and a stateless, client-server, cacheable communications protocol. The basic principles of REST involve:
+- **Resources**: Each resource on the server is addressed using URIs (Uniform Resource Identifiers). Resources are text representations, such as JSON or XML.
+- **Statelessness**: Each request from client to server must contain all the information the server needs to understand the request. The server does not store any session information about the client.
+- **Uniform Interface**: REST uses a uniform set of predefined operations (like GET, POST, PUT, DELETE), which helps decouple the client from the server.
+- **Cacheability**: Responses must, explicitly or implicitly, define themselves as cacheable or not to prevent clients from getting outdated or inappropriate data.
 
-**Issues with Using Files for Data Persistence:**
-1. **Concurrency:** Managing simultaneous access by multiple users is problematic with file systems, as they do not inherently support concurrent user access to the same data file.
-2. **Data Redundancy and Inconsistency:** With file systems, it is easy to have data duplication, and changes in one file may not propagate to duplicates, leading to inconsistency.
-3. **Security:** File systems generally provide limited security options for data access control.
-4. **Data Integrity:** Ensuring data integrity is complex because file systems lack support for enforcing data rules beyond basic file permissions.
-5. **Backup and Recovery:** Effective and efficient backup and recovery processes are not typically built into file systems, which can make restoring data more difficult.
+**Advantages of REST Over Earlier Service Models:**
+- **Scalability**: Due to its stateless nature, REST can handle large numbers of requests and scale out as necessary, which is advantageous for cloud environments.
+- **Simplicity and Flexibility**: RESTful APIs are easy to understand and implement, allowing for greater development flexibility and faster deployment compared to more rigid service models like SOAP.
+- **Interoperability**: RESTful APIs use standard HTTP and can be consumed by any client that understands HTTP, enhancing platform and language interoperability.
 
-**How Databases Address These Issues:**
-1. **Concurrency:** Databases are designed to handle multiple users accessing the same data simultaneously, using sophisticated locking and transaction controls.
-2. **Data Integrity:** Databases enforce data integrity through constraints (like primary keys, foreign keys, unique, and check constraints).
-3. **Reduced Redundancy:** Normalization processes in databases reduce redundancy, ensuring data is stored only once.
-4. **Security:** Databases provide robust security features, including user authentication and authorization down to row and column levels.
-5. **Backup and Recovery:** Databases include tools and features that support regular backups, point-in-time recovery, and logging transactions.
+**Benefit of RESTful Models for the Cloud:**
+- **Cloud Compatibility**: REST is particularly well-suited for distributed systems like the cloud due to its support for stateless communication and cacheable data, making it efficient for cloud services to operate at scale.
+- **Decoupling**: Clients and servers can evolve independently, a major benefit in cloud-based services where services might be scaled, updated, or replaced transparently.
 
-### 1.b) Identify which of the following SQL statements are DML:
+### 4(b) Benefits of RESTful APIs in the Cloud Context and Interoperability
 
-DML (Data Manipulation Language) statements are used for adding, deleting, and modifying data in a database. Based on the options given:
-- **DELETE FROM Customers;** (DML - deletes data)
-- **SELECT * FROM Customers;** (DML - queries data)
-- **CREATE VIEW Cust_View AS SELECT * FROM Customers;** (DDL - defines data structures)
-- **DROP TABLE IF EXISTS Customers;** (DDL - modifies database structure)
-- **SELECT * FROM Cust_View;** (DML - queries data)
+**Why RESTful APIs are Beneficial in the Cloud:**
+- **Elasticity and Load Balancing**: REST’s stateless operations align perfectly with the cloud’s need to dynamically manage and balance loads. This makes it easier to add or remove resources without affecting the rest of the system.
+- **Microservices Architecture**: RESTful APIs are foundational to the microservices architecture commonly employed in cloud environments, facilitating the development of independently deployable modular services that work together.
 
-So, the DML statements here are i, ii, and v.
+**Bridging Interoperability Gaps:**
+- RESTful APIs are based on standard HTTP protocols, which are universally supported across cloud platforms. This universality enables different systems and services, potentially across different cloud providers, to communicate seamlessly.
+- For instance, a cloud service hosted on AWS can easily interact with services hosted on Azure or Google Cloud through RESTful APIs without requiring additional translation layers or complex integration software.
 
-### 1.c) Data independence and the importance of this separation
+**Personal Opinion on RESTful APIs and Interoperability:**
+- **Strategic Advantage**: The adoption of RESTful APIs provides strategic advantages in multi-cloud and hybrid cloud environments. Organizations are not only able to integrate services across diverse platforms but can also avoid vendor lock-in by facilitating easier migration or distribution of services across different cloud providers.
+- **Developer Ecosystem**: The simplicity and accessibility of RESTful APIs contribute to a vibrant developer ecosystem around cloud services, driving innovation and ensuring that businesses can leverage the best tools for their needs, irrespective of the underlying cloud platform.
 
-**Data Independence:**
-Data independence is the capacity to change the schema at one level of a database system without having to change the schema at the next higher level. There are two types:
-- **Logical Data Independence:** The ability to modify the logical schema without altering the external schema or application programs. For example, changing the structure of a table (like adding a column) without affecting how user applications interact with the table.
-- **Physical Data Independence:** The ability to modify the physical schema without changing the logical schema. For example, changing how data is stored on disks that does not affect the table structure seen by the user.
+In summary, RESTful APIs are integral to modern cloud architectures, offering essential characteristics that promote scalability, flexibility, and interoperability. These attributes are crucial for businesses looking to leverage cloud computing for its full strategic advantage.
 
-**Importance of Data Independence:**
-1. **Flexibility:** Allows the database to change without necessitating changes in the applications that access it.
-2. **Reduced Maintenance Costs:** Changes in some parts of the schema do not require changes in all application programs, thus reducing maintenance costs.
-3. **Impact Isolation:** Changes at one level do not affect other levels, thus limiting the impact of changes and reducing the ripple effect of modifications.
+### 5(a) Impact of Peer-to-Peer Protocols like WebRTC on Cloud Computing
 
-This concept is crucial for the longevity and adaptability of database systems, ensuring that applications built on top of the database can continue to function efficiently even as changes are made to how data is stored or structured.
+**What is a Peer-to-Peer Protocol?**
+A peer-to-peer (P2P) protocol is a network architecture where each participant, or "peer," acts as both a client and a server. This decentralized model allows peers to share resources directly with each other without the need for a central coordinating server. This architecture is used for a variety of applications, from file sharing to media streaming and communication.
 
+**WebRTC and Its Impact on Cloud Computing**
+WebRTC (Web Real-Time Communication) is an open-source project and technology that enables real-time communication (RTC) capabilities directly in web browsers via simple APIs. It supports video, voice, and generic data to be sent between peers, allowing developers to build powerful voice and video communication solutions.
 
+**Positive Impacts:**
+- **Reduced Latency**: By facilitating direct peer-to-peer communication, WebRTC can significantly reduce latency compared to traditional cloud architectures that may require routing data through a central server.
+- **Bandwidth Efficiency**: P2P communication minimizes bandwidth usage through direct exchanges between clients, reducing the load on cloud servers and network infrastructure.
+- **Scalability**: WebRTC can enhance scalability in cloud services by distributing the data load across multiple peers, reducing dependency on central servers and allowing services to scale dynamically based on user numbers.
 
-Let's address each of your questions based on the content in the image:
+**Negative Impacts:**
+- **Security Risks**: Peer-to-peer communications can introduce security risks, as data is not routed through controlled, secure servers. Ensuring encryption and secure direct connections is challenging and crucial.
+- **Inconsistency and Reliability**: The quality and reliability of P2P connections can vary, depending on the peers' network conditions. This can affect the consistency of service delivery in environments like the cloud where consistency is valued.
+- **Management and Monitoring Challenges**: It can be more difficult to monitor and manage decentralized peer-to-peer communications than centralized cloud services. Implementing consistent policies and quality of service across a dispersed network is complex.
 
-### 1.d) What is a weak entity?
-In an Entity-Relationship Diagram (ERD) following the Chen notation, a weak entity is represented as a rectangle with an inner border. A weak entity is a type of entity that cannot be uniquely identified by its own attributes alone; it relies on a foreign key in addition to its own attributes to form a primary key, typically because it has a dependency on another entity (referred to as the owner or strong entity).
+### 5(b) Users' Responsibility for Security in the Cloud
 
-**Example:**
-Consider an entity `Order`. Each `Order` can have multiple `OrderDetails` (specific items within the order). Here, `OrderDetails` would be the weak entity because it cannot be uniquely identified without the `Order` entity, which it is associated with. Each `OrderDetail` might have an attribute like `ItemNumber`, but this number only makes sense in the context of its specific `Order`.
+**Statement Discussion:**
+The assertion that "Users are principally responsible for the security of their data in the cloud" points to a significant and often debated aspect of cloud computing—the shared responsibility model in cloud security. This model outlines that while cloud providers are responsible for the security 'of' the cloud (infrastructure, databases, and storage), customers are responsible for security 'in' the cloud (data, applications, and access management).
 
-### 1.e) Concept of a candidate key
-A candidate key is an attribute, or a set of attributes, that can uniquely identify a tuple (row) in a table and thus can potentially serve as the primary key of the table. Every table might have one or more candidate keys, but only one of these gets selected as the primary key.
+**User Responsibilities:**
+- **Data Encryption**: Users should ensure their data is encrypted both in transit and at rest. While many cloud services provide tools for encryption, using them effectively often falls to the user.
+- **Access Controls**: Implementing strong authentication and access controls is crucial. Users must manage who has access to their data and under what conditions.
+- **Secure Software Interfaces**: Using secure API and ensuring that third-party software integrates securely with cloud services is the user's responsibility.
+- **Compliance and Privacy**: Users must understand and comply with regulations applicable to their data and industry. This includes ensuring their cloud usage complies with legal and regulatory requirements.
 
-**Example:**
-In a table `Employees` with columns `EmployeeID`, `SSN`, `Email`, and `PhoneNumber`, both `EmployeeID` and `SSN` could serve as candidate keys because each one uniquely identifies an employee. However, typically `EmployeeID` might be chosen as the primary key because it is system generated and guaranteed to be unique.
+**Roles of Various Stakeholders:**
+- **Cloud Providers**: Must secure the infrastructure and offer tools and services that facilitate user security management, such as identity access management (IAM) tools, encryption services, and detailed compliance controls.
+- **Regulators**: Establish guidelines and standards that govern data security and privacy, influencing how both providers and users approach cloud security.
+- **Third-Party Auditors and Security Experts**: Play a critical role by providing audits, assessments, and guidance to ensure cloud deployments are secure and vulnerabilities are addressed.
 
-### 1.f) Advantages of using views
-A view in SQL is a virtual table based on the result-set of an SQL statement. It contains rows and columns, just like a real table. The fields in a view are fields from one or more real tables in the database.
-
-**Advantages:**
-- **Security**: Views can restrict access to certain data, allowing users to access only specific rows or columns of data.
-- **Simplicity**: Views can simplify the complexity of data by presenting a different, often simpler structure to the user, hiding the complexity of underlying data joins.
-- **Data Integrity**: Views can be used to ensure data integrity through the use of functions, group by, and clauses to show data that fulfills certain conditions.
-- **Query Efficiency**: Repeatedly used complex queries can be encapsulated in views for efficiency and convenience.
-
-### 1.g) Basic operation of a trigger
-A trigger in a relational database is a procedural code that is automatically executed in response to certain events on a particular table or view. Triggers are used to maintain the integrity of the data across tables.
-
-**Operations:**
-- **Before Triggers**: Execute before a specified operation (e.g., insert, update, or delete).
-- **After Triggers**: Execute after the specified operation has been completed.
-- **Instead Of Triggers**: Execute in place of an operation.
-
-**Example Problem Solved:**
-A trigger can automatically update the `ModifiedDate` column of a `Customers` table whenever data in a row is updated. This helps in maintaining accurate and automated record-keeping without requiring explicit action from the user.
-
-### 1.h) Explanation of transactions with example
-A transaction in SQL is a sequence of operations performed as a single logical unit of work. A transaction must either complete in its entirety or not at all, which is ensured through the capabilities to commit (save the changes) or rollback (undo changes) the transaction.
-
-**Example:**
-Consider a banking system where you need to transfer $100 from Account A to Account B. This involves two steps: debiting Account A and crediting Account B. These steps need to be executed as part of a single transaction:
-```sql
-BEGIN TRANSACTION;
-UPDATE Accounts SET balance = balance - 100 WHERE accountID = 'A';
-UPDATE Accounts SET balance = balance + 100 WHERE accountID = 'B';
-IF @@ERROR != 0
-    ROLLBACK TRANSACTION;
-ELSE
-    COMMIT TRANSACTION;
-```
-This ensures that if either operation fails, the entire transaction will roll back, maintaining the integrity of the financial data.
-
-Each part of your query involves foundational concepts of database management that are crucial for designing robust, secure, and efficient databases.
-
-
-Let's tackle each SQL query as requested based on the database schema provided in the image.
-
-### 2.a) SQL Statement for Students and Their Addresses
-This query requires joining the `Students` and `Address` tables and displaying NULL for students without an address.
-
-```sql
-SELECT 
-    s.student_id, 
-    s.firstname, 
-    s.lastname, 
-    s.student_number,
-    a.street,
-    a.city,
-    a.zipcode,
-    a.country
-FROM Students s
-LEFT JOIN Address a ON s.student_id = a.fk_student_id;
-```
-
-### 2.b) SQL Statement for a VIEW - ListModules for Course DT228
-This view displays the course ID, course title, module title, and module description for a specific course (DT228).
-
-```sql
-CREATE VIEW ListModules AS
-SELECT 
-    c.course_id, 
-    c.course_title, 
-    m.module_title, 
-    m.module_description
-FROM Courses c
-JOIN Modules m ON c.course_id = m.fk_course_id
-WHERE c.course_id = 'DT228';
-```
-
-### 2.c) SQL Statement to Create a List of Courses and Their Module Counts
-This query lists all courses and the number of modules on each course, storing the results in a temporary table called `TmpModuleCount`.
-
-```sql
-SELECT 
-    c.course_id, 
-    c.course_title,
-    COUNT(m.module_id) AS module_count
-INTO TmpModuleCount
-FROM Courses c
-LEFT JOIN Modules m ON c.course_id = m.fk_course_id
-GROUP BY c.course_id, c.course_title;
-```
-
-In these examples:
-- **2.a)** uses a `LEFT JOIN` to ensure all students are listed, even those without an associated address, substituting `NULL` where no address exists.
-- **2.b)** defines a view that filters and presents data specifically for course DT228, showing relevant module details.
-- **2.c)** uses an aggregate function (`COUNT`) to determine the number of modules per course and employs the `INTO` clause to store results in a temporary table.
-
-These SQL statements are designed to work with most SQL database systems, though specifics such as temporary table syntax might vary slightly depending on the SQL dialect (e.g., SQL Server, PostgreSQL, MySQL). Make sure to adjust the syntax to fit the specific SQL environment you are using.
-
-
-
-### 3.a) Description of First, Second, and Third Normal Forms
-
-#### **First Normal Form (1NF)**
-**Definition:**
-A table is in 1NF if it has no repeating groups or arrays. Essentially, each column must contain only atomic (indivisible) values, and each row should contain a unique identifier (primary key).
-
-**Example:**
-Consider a table with data about music albums where some rows have multiple genres listed in a single column:
-```
-AlbumID | AlbumName           | Genres
---------|---------------------|-----------
-1       | Thriller            | Pop, Rock
-2       | Back in Black       | Rock
-```
-This table is not in 1NF because the `Genres` column contains non-atomic values. To bring the table to 1NF:
-```
-AlbumID | AlbumName           | Genre
---------|---------------------|-------
-1       | Thriller            | Pop
-1       | Thriller            | Rock
-2       | Back in Black       | Rock
-```
-
-#### **Second Normal Form (2NF)**
-**Definition:**
-A table is in 2NF if it is in 1NF and all non-key attributes are fully dependent on the primary key. There should be no partial dependency, where a column is dependent only on part of a composite primary key.
-
-**Example:**
-Using the previous 1NF example, assume we now have album details including artist and release date:
-```
-AlbumID | AlbumName           | Genre  | Artist         | ReleaseDate
---------|---------------------|--------|----------------|------------
-1       | Thriller            | Pop    | Michael Jackson| 1982-11-30
-1       | Thriller            | Rock   | Michael Jackson| 1982-11-30
-2       | Back in Black       | Rock   | AC/DC          | 1980-07-25
-```
-This table is in 1NF but not in 2NF because `Artist` and `ReleaseDate` are dependent only on `AlbumID` and not on `Genre`. To bring the table to 2NF:
-```
-Albums Table:
-AlbumID | AlbumName           | Artist         | ReleaseDate
---------|---------------------|----------------|------------
-1       | Thriller            | Michael Jackson| 1982-11-30
-2       | Back in Black       | AC/DC          | 1980-07-25
-
-Genres Table:
-AlbumID | Genre
---------|------
-1       | Pop
-1       | Rock
-2       | Rock
-```
-
-#### **Third Normal Form (3NF)**
-**Definition:**
-A table is in 3NF if it is in 2NF and no non-key attribute is dependent on another non-key attribute (transitive dependency).
-
-**Example:**
-Using the 2NF example above, suppose we include a column for `ArtistBirthYear` in the Albums table:
-```
-Albums Table:
-AlbumID | AlbumName           | Artist         | ReleaseDate  | ArtistBirthYear
---------|---------------------|----------------|--------------|----------------
-1       | Thriller            | Michael Jackson| 1982-11-30   | 1958
-2       | Back in Black       | AC/DC          | 1980-07-25   | NULL
-```
-`ArtistBirthYear` is dependent on `Artist`, which is a non-key attribute. This is a transitive dependency. To bring the table to 3NF, we separate artist information:
-```
-Albums Table:
-AlbumID | AlbumName           | Artist         | ReleaseDate
---------|---------------------|----------------|------------
-1       | Thriller            | Michael Jackson| 1982-11-30
-2       | Back in Black       | AC/DC          | 1980-07-25
-
-Artists Table:
-Artist         | BirthYear
----------------|----------
-Michael Jackson| 1958
-AC/DC          | NULL
-```
-
-### 3.b) Constructing an ERD in Chen Notation
-
-For the music DJ application, here is a conceptual ERD based on Chen notation:
-- **Entities**:
-  - **Album**: Attributes include `AlbumID`, `Title`, `ReleaseDate`. Related to `Genre`, `Artist`, and `Track`.
-  - **Artist**: Attributes include `ArtistID`, `ArtistName`.
-  - **Genre**: Attributes include `GenreID`, `GenreName`.
-  - **Track**: Attributes include `TrackID`, `TrackTitle`.
-  - **Playlist**: Attributes include `PlaylistID`, `PlaylistName`.
-- **Relationships**:
-  - **Album** has a many-to-many relationship with **Genre**.
-  - **Album** has a many-to-one relationship with **Artist**.
-  - **Album** has a one-to-many relationship with **Track**.
-  - **Playlist** has a many-to-many relationship with **Track**.
-
-
-### 1.a) Issues with Using Files for Data Persistence and Database Solutions
-
-**Issues with Files for Data Persistence:**
-1. **Concurrency**: Handling concurrent access by multiple users is problematic, leading to potential data corruption or access conflicts.
-2. **Data Redundancy**: Data can easily be duplicated in multiple files, leading to inconsistencies.
-3. **Data Integrity**: Maintaining data integrity is challenging because files lack the mechanisms to enforce data constraints.
-4. **Scalability**: Scaling a file-based system to handle larger datasets efficiently is difficult.
-5. **Security**: File-based systems generally provide limited security features to control access to data.
-
-**Database Solutions:**
-- **Concurrency Control**: Databases manage concurrent access efficiently through locking and transactions, ensuring data consistency.
-- **Reduced Redundancy**: Normalization in databases helps reduce redundancy and inconsistency.
-- **Integrity Constraints**: Databases enforce data integrity via constraints (e.g., primary keys, foreign keys).
-- **Scalability**: Databases are designed to handle large volumes of data efficiently, with capabilities like indexing to improve query performance.
-- **Advanced Security**: Databases offer comprehensive security features, including role-based access controls.
-
-### 1.b) DDL and DML in SQL
-
-**DDL (Data Definition Language)**
-- **Purpose**: Used to define and modify database schema and structure.
-- **Common Statements**: `CREATE`, `ALTER`, `DROP`.
-- **Examples**: 
-  - `CREATE TABLE` to create new tables.
-  - `DROP TABLE` to delete tables.
-  - `ALTER TABLE` to modify existing table structure (e.g., adding a column).
-
-**DML (Data Manipulation Language)**
-- **Purpose**: Used to retrieve and manipulate data within the existing database structures.
-- **Common Statements**: `SELECT`, `INSERT`, `UPDATE`, `DELETE`.
-- **Examples**:
-  - `SELECT` to query data from tables.
-  - `INSERT` to add new records.
-  - `UPDATE` to modify existing data.
-  - `DELETE` to remove data.
-
-### 1.c) Concept of Physical and Logical Data Independence
-
-**Physical Data Independence**:
-- **Definition**: The ability to modify the physical schema without affecting the logical schema.
-- **Importance**: Enables changes in storage and access methods without altering the conceptual view of data, which means applications built on the database do not need to be changed when modifications are made to how data is stored.
-
-**Logical Data Independence**:
-- **Definition**: The ability to change the logical schema without altering the external schemas or application programs.
-- **Importance**: Facilitates changes to the logical schema (like adding a new field or table) without affecting the application's ability to access data, ensuring application stability during database evolution.
-
-### 1.d) Benefits of the ER Model in Database Design
-
-**Benefits of Using the ER Model:**
-1. **Visual Representation**: Provides a clear graphical representation of the database structure, making it easier to understand and communicate the database design.
-2. **Simplifies Design Process**: Helps in organizing and structuring data requirements systematically before actual database creation, reducing complexity and errors.
-3. **Facilitates Database Normalization**: By identifying entities, their relationships, and attributes clearly, the ER model supports the normalization process to optimize database structure.
-4. **Enhances Data Integrity**: The model explicitly defines relationships and constraints, which helps in implementing data integrity in the actual database.
-5. **Scalability and Flexibility**: Makes it easier to add new data and modify existing structures without significant disruptions, supporting the scalability and evolution of the database system.
-
-The ER model serves as a foundational tool in database design, providing a conceptual framework that helps database designers visualize and construct a database architecture that is robust, efficient, and scalable.
-
-.### 1.e) Concept of a Superkey
-
-A **superkey** is a set of one or more attributes that, taken collectively, can uniquely identify a tuple (row) in a table. A superkey may include attributes that are not necessary for unique identification. It is a broader concept compared to a primary key, which is a minimal superkey that cannot have any redundant information.
-
-**Example:**
-Consider a table `Students` with columns `StudentID`, `StudentEmail`, `FirstName`, and `LastName`. Here:
-- `StudentID` alone can uniquely identify a student, making it a superkey.
-- The combination of `StudentEmail` and `FirstName` could also uniquely identify a student (assuming no two students with the same name share an email), so this combination is another superkey.
-- A primary key would typically be `StudentID` because it is minimal and sufficient to identify each record uniquely.
-
-### 1.f) Advantages and Disadvantages of Using Stored Procedures
-
-**Advantages:**
-1. **Performance**: Stored procedures are compiled once and stored in executable form, which can result in performance improvements as they are reused.
-2. **Reduced Network Traffic**: Executing stored procedures can reduce network traffic because only calls and specific data are transmitted rather than batches of SQL statements.
-3. **Reusability and Maintainability**: Stored procedures can be reused across different programs and applications, promoting consistency and ease of maintenance.
-4. **Security**: They help enhance security by restricting direct access to data and allowing execution through controlled interfaces.
-
-**Disadvantages:**
-1. **Debugging Difficulty**: Debugging stored procedures can be more challenging compared to other forms of code, especially when complex logic is involved.
-2. **Database Dependency**: Using stored procedures can increase dependency on the specific database and its version, potentially leading to issues with portability between different database systems.
-3. **Complexity**: Maintaining complex stored procedures can become difficult, especially as changes in business logic or database structure occur.
-
-### 1.g) Concept of Referential Integrity
-
-**Referential integrity** is a database concept that ensures relationships between tables remain consistent. It is typically enforced using foreign keys. This means that any foreign key field must agree with the primary key that is referenced by the foreign key.
-
-**Example:**
-Consider two tables, `Orders` and `Customers`:
-- `Customers` has a primary key `CustomerID`.
-- `Orders` includes a foreign key `CustomerID` that references `Customers.CustomerID`.
-
-Referential integrity ensures that every `CustomerID` in the `Orders` table must also exist in the `Customers` table. This prevents scenarios such as an order being associated with a non-existent customer.
-
-### 1.h) Description of an Atomic Transaction
-
-An **atomic transaction** in database management is a sequence of operations that are treated as a single unit. This transaction must either be fully completed or not executed at all, which means it adheres to an "all or nothing" rule. This is crucial for maintaining data integrity.
-
-**Example:**
-Consider a banking system where you want to transfer $100 from Alice's account to Bob's account:
-1. **Debit $100 from Alice's account.**
-2. **Credit $100 to Bob's account.**
-
-Both operations must be executed together as part of a single transaction:
-- If both steps complete successfully, the transaction commits and the changes are permanently saved.
-- If any step fails, the entire transaction rolls back, and both accounts remain unchanged.
-
-This ensures that the database state is always consistent, even in cases of a system crash or power failure during the transaction.
-
-
-
-Let's address each of the SQL tasks based on the database schema provided:
-
-### 2.a) SQL Statement to List All Customers and Their Addresses
-
-This statement will join the `Customers` and `Address` tables and display all columns from both tables, using a `LEFT JOIN` to include customers who might not have an address, in which case address fields will show as `NULL`.
-
-```sql
-SELECT 
-    c.customer_id, 
-    c.firstname, 
-    c.lastname, 
-    a.street, 
-    a.city, 
-    a.county, 
-    a.country
-FROM Customers c
-LEFT JOIN Address a ON c.customer_id = a.fk_customer_id;
-```
-
-### 2.b) SQL Statement to Create a VIEW Named ListOrders
-
-This view will list all orders along with the order ID, order date, and customer's name. It requires joining the `Orders` table with the `Customers` table to fetch the customer's name.
-
-```sql
-CREATE VIEW ListOrders AS
-SELECT 
-    o.order_id, 
-    o.order_date, 
-    CONCAT(c.firstname, ' ', c.lastname) AS customer_name
-FROM Orders o
-JOIN Customers c ON o.fk_customer_id = c.customer_id;
-```
-
-### 2.c) SQL Statement to List All Orders and the Total Price of Each Order
-
-This query needs to calculate the sum of product prices for each order. It involves a join among `Orders`, `Product_Order`, and `Products`, and grouping the results by order ID to sum the prices.
-
-```sql
-SELECT 
-    o.order_id, 
-    o.order_date, 
-    SUM(p.price * po.amount) AS total_price
-INTO TmpListOrders
-FROM Orders o
-JOIN Product_Order po ON o.order_id = po.fk_order_id
-JOIN Products p ON po.fk_product_id = p.product_id
-GROUP BY o.order_id, o.order_date;
-```
-
-In this query:
-- `p.price * po.amount` computes the total price for each product in an order by multiplying the unit price by the quantity.
-- `INTO TmpListOrders` stores the result into a temporary table called `TmpListOrders`.
-- It is assumed that `price` in the `Products` table represents the unit price of the product and `amount` in the `Product_Order` table represents the quantity of each product ordered.
-
-Each SQL statement provided is tailored to fulfill the requirements based on the schema and uses standard SQL syntax. Adjustments may be necessary depending on the specific SQL dialect and database system being used (like MySQL, PostgreSQL, SQL Server, etc.).
-
-
-
-### 3.a) Conversion to Third Normal Form (3NF)
-
-**Original Table:**
-
-| student_name | student_number | course_id | course                  | modules                      |
-|--------------|----------------|-----------|-------------------------|------------------------------|
-| John Dunne   | DIT45623       | DT228     | Undergraduate Full Time | Program Design               |
-| Jane McCarthy| DIT92458       | DT249     | Undergraduate Part Time | Database Systems             |
-| Tom Jones    | DIT17032       | DT255     | Undergraduate Full Time | Database Systems             |
-| Sarah Murray | DIT82603       | DT265     | Postgraduate Part Time  | Object Oriented Programming  |
-
-**Normalization Process:**
-
-1. **First Normal Form (1NF)**
-   - The table is already in 1NF as each column contains atomic values and each row is unique.
-
-2. **Second Normal Form (2NF)**
-   - To achieve 2NF, we need to remove partial dependencies (dependencies of non-key attributes on a part of the primary key).
-   - Assuming `(student_number, course_id)` is a composite key for this table, no partial dependency exists since no non-key attribute is dependent on a part of the key alone.
-
-3. **Third Normal Form (3NF)**
-   - A table is in 3NF if it is in 2NF and all non-key attributes are non-transitively dependent on the primary key.
-   - In the original table, `course` can be considered dependent on `course_id`, and `modules` can also be considered dependent on `course_id`.
-
-**Normalized Tables:**
-
-- **Students Table**
-  | student_number | student_name |
-  |----------------|--------------|
-  | DIT45623       | John Dunne   |
-  | DIT92458       | Jane McCarthy|
-  | DIT17032       | Tom Jones    |
-  | DIT82603       | Sarah Murray |
-
-- **Courses Table**
-  | course_id | course                  |
-  |-----------|-------------------------|
-  | DT228     | Undergraduate Full Time |
-  | DT249     | Undergraduate Part Time |
-  | DT255     | Undergraduate Full Time |
-  | DT265     | Postgraduate Part Time  |
-
-- **Enrollments Table**
-  | student_number | course_id | modules                      |
-  |----------------|-----------|------------------------------|
-  | DIT45623       | DT228     | Program Design               |
-  | DIT92458       | DT249     | Database Systems             |
-  | DIT17032       | DT255     | Database Systems             |
-  | DIT82603       | DT265     | Object Oriented Programming  |
-
-**Justification for 3NF:**
-- Each table now only contains data that is dependent on the key to that table.
-- The `Students Table` and `Courses Table` remove redundant data and ensure that changes in course details or student names need only be updated in one place, maintaining data integrity.
-
-### 3.b) ERD for Banking System Requirements
-
-**Entities and Attributes:**
-- **Customer**
-  - Attributes: CustomerID (PK), FirstName, LastName, Address, PinNumber
-- **Account**
-  - Attributes: AccountNumber (PK), AccountType, Balance
-- **Transaction**
-  - Attributes: TransactionID (PK), Type, Amount, Date
-- **ATM**
-  - Attributes: ATMID (PK), Location
-
-**Relationships:**
-- **Customer-Account Relationship**
-  - One-to-Many: One customer can have multiple accounts.
-- **Account-Transaction Relationship**
-  - One-to-Many: One account can have multiple transactions.
-- **ATM-Transaction Relationship**
-  - One-to-Many: One ATM can handle multiple transactions, but each transaction occurs at one ATM.
-
-**ER Diagram Description:**
-- The diagram would feature each entity connected by lines indicating their relationships. Attributes would be listed within each entity.
-- Chen notation would involve rectangles for entities, ovals for attributes directly connected to their entities, diamonds for relationships, and lines to connect relationships with entities.
-- Cardinality labels (1:1, 1:M, M:N) near the connection lines indicate the nature of relationships.
-
-This ERD would effectively model the system, showing the structural relationships between customers, their bank accounts, the transactions they perform, and the ATMs where transactions occur.
+**Personal Opinion:**
+While the cloud model does delegate certain security responsibilities to providers, users play a crucial role in managing and protecting their data. Vigilance and proactive security measures by users are indispensable, especially as cloud environments become increasingly complex. The notion that security is solely the provider's responsibility is a misconception that can lead to significant security lapses. Collaboration between cloud providers and users is essential to ensure comprehensive security in the cloud ecosystem.
 
